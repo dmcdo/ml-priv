@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TrainSelfMain {
     public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -26,7 +27,7 @@ public class TrainSelfMain {
         int owins = 0;
         int ties = 0;
         for (int i = 0; i < 1000; i++) {
-            var exp = PerformanceSys.trainAgainstSelf(hyp);
+            Experiment exp = PerformanceSys.trainAgainstSelf(hyp);
 
             switch ((char)exp.getWinner()) {
                 case 'X':
@@ -42,7 +43,7 @@ public class TrainSelfMain {
                     throw new RuntimeException("Logic Error");
             }
 
-            var crits = Criticism.criticize(hyp, exp);
+            ArrayList<Criticism> crits = Criticism.criticize(hyp, exp);
             hyp = Generalizer.generalize(hyp, crits);
         }
 
