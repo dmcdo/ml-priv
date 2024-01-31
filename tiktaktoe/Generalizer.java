@@ -14,6 +14,13 @@ public class Generalizer {
             weights[4] = weights[4] + learnRate * (crit.v_train() - hyp.v_hat(crit.state())) * crit.fvals()[4];
             weights[5] = weights[5] + learnRate * (crit.v_train() - hyp.v_hat(crit.state())) * crit.fvals()[5];
             weights[6] = weights[6] + learnRate * (crit.v_train() - hyp.v_hat(crit.state())) * crit.fvals()[6];
+
+            double avgfval = (double)(crit.fvals()[0] +
+                                      crit.fvals()[1] +
+                                      crit.fvals()[2] +
+                                      crit.fvals()[3] +
+                                      crit.fvals()[4]) / 5.0; // Ignore 6 and 7 they're bad.
+            zerothweight = zerothweight + learnRate * (crit.v_train() - hyp.v_hat(crit.state())) * avgfval;
         }
 
         return new Hypothesis(

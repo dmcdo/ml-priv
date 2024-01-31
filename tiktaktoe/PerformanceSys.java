@@ -30,10 +30,16 @@ public class PerformanceSys {
     }
 
     public static Experiment trainHumanTeacher(Hypothesis hyp, Scanner sc) {
-        Random rnd = new Random();
-        Experiment exp = new Experiment(rnd.nextInt(2) == 0 ? 'X' : 'O');
+        Experiment exp;
 
         System.out.println("You will be O.");
+        System.out.println("Would you like to go first? Y/N:");
+        String ans = sc.nextLine();
+        if (ans.length() > 0 && ans.toUpperCase().equals("Y"))
+            exp = new Experiment('O');
+        else
+            exp =new Experiment('X');
+
         System.out.println("Player " + exp.nextPlayer() + " will go first.");
         System.out.println();
 
@@ -46,8 +52,6 @@ public class PerformanceSys {
                 int[] move = PerformanceSys.humanMove(exp.state, hyp, sc);
                 exp.move(move[0], move[1]);
             }
-
-            System.out.println(exp.getStateString());
         }
 
         System.out.println();

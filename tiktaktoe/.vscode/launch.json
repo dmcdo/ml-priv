@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TrainTeacherMain",
+            "request": "launch",
+            "mainClass": "TrainTeacherMain",
+            "projectName": "tiktaktoe_6d0fd99e"
+        },
+        {
+            "type": "java",
+            "name": "TrainTecherMain",
+            "request": "launch",
+            "mainClass": "TrainTecherMain",
+            "projectName": "tiktaktoe_6d0fd99e"
+        },
+        {
+            "type": "java",
+            "name": "TrainSelfMain",
+            "request": "launch",
+            "mainClass": "TrainSelfMain",
+            "projectName": "tiktaktoe_6d0fd99e"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "Main",

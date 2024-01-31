@@ -81,7 +81,7 @@ public class Hypothesis {
 
     public String toString() {
         return String.format(
-            "%.5e %.5e %.5e %.5e %.5e %.5e %.5e %.5e",
+            "%f %f %f %f %f %f %f %f",
             zerothweight,
             weights[0],
             weights[1],
