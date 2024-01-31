@@ -1,7 +1,28 @@
 import java.util.Scanner;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class PerformanceSys {
+    public static Experiment trainAgainstPredefinedGame(Hypothesis hyp, char startingplayer, ArrayList<int[]> moves) {
+        Experiment exp = new Experiment(startingplayer);
+
+        for (int i = 0; i < moves.size(); i++) {
+            if (exp.getWinner() != null) {
+                System.err.println("WARNING: Premature victory. Discarding experiment.");
+                return null;
+            }
+
+            exp.move(moves.get(i)[0], moves.get(i)[1]);
+        }
+
+        if (exp.getWinner() == null) {
+            System.err.println("WARNING: No victory. Discarding experiment.");
+            return null;
+        }
+
+        return exp;
+    }
+
     public static Experiment trainAgainstSelf(Hypothesis hyp) {
         Random rnd = new Random();
         Experiment exp = new Experiment(rnd.nextInt(2) == 0 ? 'X' : 'O');

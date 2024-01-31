@@ -6,8 +6,28 @@ $ make
 To run the self-trainer, execute:
 $ make testNoTeacher
 
-To run the interactive teacher trainer, execute:
+To run the teacher trainer, execute:
 $ make testTeacher
+
+    This default game file is "games.txt". You may provide your own game
+    file by running "make testTeacher GAMEFILE=customgame.txt".
+
+    The game file is of the following format:
+        - N       (N games wil follow)
+        - P       (Starting player, X or O)
+        - x y     (x and y position of the next player's move)
+        - x y
+        - ...
+        - -1 -1   (Signifies the end of a game)
+        - P
+        - x y
+        - x y
+        - ...
+
+    Training examples that do not end in finished games will be ignored.
+
+To run the interactive teacher trainer, execute:
+$ make testTeacherInteractive
 
 To reset the weights, execute:
 $ make reset
