@@ -9,8 +9,14 @@ public class PerformanceSys {
         System.out.println("Player " + exp.nextPlayer() + " will go first.");
 
         while (!exp.gameIsOver()) {
-            if (exp.nextPlayer() == 'X' && false) {
+            if (exp.nextPlayer() == 'X') {
+                int[][] legalMoves = exp.getLegalMoves();
+                assert legalMoves.length > 0;
+
                 // TODO
+                // double[] scores = new double[legalMoves.length];
+                // for (int[] coord : legalMoves)
+                    // scores[coord[0]][coord[1]] = hyp.v_hat(null)
             }
             else {
                 System.out.println(exp.getBoardString());

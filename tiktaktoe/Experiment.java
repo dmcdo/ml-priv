@@ -32,17 +32,6 @@ public class Experiment {
             return startingPlayer == 'X' ? 'O' : 'X';
     }
 
-    // public static int[][] getEmptyCells(char[][] board) {
-    //     ArrayList<int[]> empty = new ArrayList<>();
-
-    //     for (int i = 0; i < 3; i++)
-    //         for (int j = 0; j < 3; j++)
-    //             if (board[i][j] == ' ')
-    //                 empty.add(new int[] {i, j});
-
-    //     return (int[][])empty.toArray();
-    // }
-
     public boolean gameIsOver() {
         final int[][][] lines = {
             {{0, 0}, {1, 0}, {2, 0}},
@@ -70,6 +59,17 @@ public class Experiment {
 
         // The game has ended in a tie.
         return true;
+    }
+
+    public int[][] getLegalMoves() {
+        ArrayList<int[]> empty = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                if (board[i][j] == ' ')
+                    empty.add(new int[] {i, j});
+
+        return (int[][])empty.toArray();
     }
 
     public String getBoardString() {
