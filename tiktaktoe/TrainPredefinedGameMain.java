@@ -42,7 +42,7 @@ public class TrainPredefinedGameMain {
                     moves.add(new int[] {x, y});
             }
 
-            var exp = PerformanceSys.trainAgainstPredefinedGame(hyp, startingplayer, moves);
+            Experiment exp = PerformanceSys.trainAgainstPredefinedGame(hyp, startingplayer, moves);
             if (exp == null)
                 continue;
 
@@ -60,7 +60,7 @@ public class TrainPredefinedGameMain {
                     throw new RuntimeException("Logic Error");
             }
 
-            var crits = Criticism.criticize(hyp, exp);
+            ArrayList<Criticism> crits = Criticism.criticize(hyp, exp);
             hyp = Generalizer.generalize(hyp, crits);
         }
 
