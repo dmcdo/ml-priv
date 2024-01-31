@@ -83,14 +83,14 @@ public class PerformanceSys {
     }
 
     public static int[] cpuMove(char[][] state, Hypothesis hyp) {
-        var legalMoves = Experiment.getLegalMoves(state);
+        ArrayList<int[]> legalMoves = Experiment.getLegalMoves(state);
         assert legalMoves.size() > 0;
 
         int bestMove = 0;
         double bestScore = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < legalMoves.size(); i++) {
             // Make copy of board state
-            var newstate = Experiment.cloneState(state);
+            char[][] newstate = Experiment.cloneState(state);
             newstate[legalMoves.get(i)[0]][legalMoves.get(i)[1]] = 'X';
 
             // Calculate score
@@ -125,4 +125,3 @@ public class PerformanceSys {
         return new int[] {i, j};
     }
 }
-
