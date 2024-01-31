@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Experiment {
     public char[][] board;
     public char startingPlayer;
-    public ArrayList<int[]> moveHist;
+    public ArrayList<char[][]> history;
 
     public Experiment(char startingPlayer) {
         assert startingPlayer == 'X' || startingPlayer == 'O';
 
-        this.moveHist = new ArrayList<>();
+        this.history = new ArrayList<>();
         this.startingPlayer = startingPlayer;
         this.board = new char[][] {
             {' ', ' ', ' '},
@@ -18,15 +18,12 @@ public class Experiment {
     }
 
     public void move(int i, int j) {
-        assert board[i][j] == ' ';
-        assert !gameIsOver();
-
+        history.add(cloneBoardState());
         board[i][j] = nextPlayer();
-        moveHist.add(new int[] {i, j});
     }
 
     public char nextPlayer() {
-        if (moveHist.size() % 2 == 0)
+        if (history.size() % 2 == 0)
             return startingPlayer == 'X' ? 'X' : 'O';
         else
             return startingPlayer == 'X' ? 'O' : 'X';
@@ -62,6 +59,18 @@ public class Experiment {
     }
 
     public int[][] getLegalMoves() {
+        return Experiment.getLegalMoves(board);
+    }
+
+    public String getBoardString() {
+        return Experiment.getBoardString(board);
+    }
+
+    public char[][] cloneBoardState() {
+        return Experiment.cloneBoardState(board);
+    }
+
+    public static int[][] getLegalMoves(char[][] board) {
         ArrayList<int[]> empty = new ArrayList<>();
 
         for (int i = 0; i < 3; i++)
@@ -69,10 +78,13 @@ public class Experiment {
                 if (board[i][j] == ' ')
                     empty.add(new int[] {i, j});
 
-        return (int[][])empty.toArray();
+        int[][] result = new int[empty.size()][];
+        for (int i = 0; i < empty.size(); i++)
+            result[i] = empty.get(i).clone();
+        return result;
     }
 
-    public String getBoardString() {
+    public static String getBoardString(char[][] board) {
         return String.format(
             " |0|1|2\n" +
             "0|%c|%c|%c\n" +
@@ -88,5 +100,13 @@ public class Experiment {
             board[1][2],
             board[2][2]
         );
+    }
+
+    public static char[][] cloneBoardState(char[][] board) {
+        char[][] clone = new char[3][3];
+        clone[0] = board[0].clone();
+        clone[1] = board[1].clone();
+        clone[2] = board[2].clone();
+        return clone;
     }
 }
