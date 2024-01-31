@@ -1,10 +1,10 @@
 default:
 	javac *.java
 
-withoutTeacher:
+testNoTeacher: default
 	java TrainSelfMain
 
-withTeacher:
+testTeacher: default
 	java TrainTeacherMain
 
 clean:
