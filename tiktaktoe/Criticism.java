@@ -1,6 +1,18 @@
 import java.util.ArrayList;
 
-public record Criticism(char[][] state, double[] fvals, double v_train) {
+public class Criticism {
+    private char[][] _state;
+    private double[] _fvals;
+    private double _v_train;
+    public char[][] state() { return _state; }
+    public double[] fvals() { return _fvals; }
+    public double v_train() { return _v_train; }
+        public Criticism(char[][] _state, double[] _fvals, double _v_train) {
+                this._state = _state;
+                this._fvals = _fvals;
+                this._v_train = _v_train;
+        }
+
     public static ArrayList<Criticism> criticize(Hypothesis hyp, Experiment exp) {
         ArrayList<Criticism> criticisms = new ArrayList<>();
 
