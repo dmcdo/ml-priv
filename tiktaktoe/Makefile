@@ -13,7 +13,7 @@ testTeacherInteractive: default
 	java TrainTeacherMain
 
 clean:
-	rm *.class
+	rm -f *.class
 
 reset:
 	cp defaultweights.txt weights.txt
