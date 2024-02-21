@@ -3,6 +3,7 @@ from math import log2
 
 def read_attributes_definition_file(fname):
     order = []
+    continuous = {}
     values = {}
 
     with open(fname, "r") as deffile:
@@ -12,11 +13,17 @@ def read_attributes_definition_file(fname):
                 break
 
             attribute, *vals = line.split()
-            order.append(attribute)
-            values[attribute] = vals
+            if vals == ["continuous"]:
+                order.append(attribute)
+                values[attribute] = []
+                continuous[attribute] = True
+            else:
+                order.append(attribute)
+                values[attribute] = vals
+                continuous[attribute] = False
 
         target, *target_values = deffile.readline().strip().split()
-        return target, target_values, values, order
+        return target, target_values, values, order, continuous
 
 
 def read_sample_training_file(fname, target, order):

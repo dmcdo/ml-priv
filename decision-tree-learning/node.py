@@ -51,7 +51,7 @@ def ID3(target, target_values, values, samples):
             root.children[value] = ID3(target, target_values, new_values, samples_vi)
         else:
             count = get_count(target, target_values, samples)
-            most_common_attribute, _ = max(count.values(), key=lambda c: c[1])
+            most_common_attribute, _ = max(count.items(), key=lambda c: c[1])
             root.children[value] = Node()
             root.children[value].label = most_common_attribute
 
