@@ -5,11 +5,12 @@ class Node:
     def __init__(self):
         self.attribute = None
         self.label = None
+        self.ratio = None
         self.children = {}
 
     def print(self, depth=0):
         if self.label:
-            print(" : " + self.label, end="")
+            print(f" : {self.label} {self.ratio}", end="")
         else:
             for edge, child in self.children.items():
                 print()
@@ -25,12 +26,14 @@ def ID3(target, target_values, values, samples):
 
     for value in target_values:
         if all(s[target] == value for s in samples):
-            root.label = f"{value} ({len(samples)},0)"
+            root.label = value
+            root.ratio = len(samples), 0
             return root
     if len(values.keys()) == 0:
         count = get_count(target, target_values, samples)
         most_common_attribute, _ = max(count.values(), key=lambda c: c[1])
-        root.label = f"{most_common_attribute} ({instances},{sum(count.values()) - instances})"
+        root.label = most_common_attribute
+        root.ratio = instances, sum(count.values()) - instances
         return root
 
     max_attr = None
@@ -52,6 +55,7 @@ def ID3(target, target_values, values, samples):
             count = get_count(target, target_values, samples)
             most_common_attribute, instances = max(count.items(), key=lambda c: c[1])
             root.children[value] = Node()
-            root.children[value].label = f"{most_common_attribute} ({instances},{sum(count.values()) - instances})"
+            root.children[value].label = most_common_attribute
+            root.children[value].ratio = instances, sum(count.values()) - instances
 
     return root
