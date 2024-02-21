@@ -8,17 +8,16 @@ class Node:
         self.children = {}
 
     def print(self, depth=0):
-        print(f" " * 4 * depth, end="")
-
-        if self.attribute:
-            print(f"- {self.attribute}")
+        if self.label:
+            print(" : " + self.label, end="")
         else:
-            print(f"- {self.label}")
-
-        for edge, child in self.children.items():
-            print(f" " * 4 * (depth + 1), end="")
-            print(edge)
-            child.print(depth + 1)
+            for edge, child in self.children.items():
+                print()
+                print(f"|   " * depth, end="")
+                print(f"{self.attribute} = {edge}", end="")
+                child.print(depth + 1)
+        if depth == 0:
+            print()
 
 
 def ID3(target, target_values, values, samples):
@@ -26,12 +25,12 @@ def ID3(target, target_values, values, samples):
 
     for value in target_values:
         if all(s[target] == value for s in samples):
-            root.label = value
+            root.label = f"{value} ({len(samples)},0)"
             return root
     if len(values.keys()) == 0:
         count = get_count(target, target_values, samples)
         most_common_attribute, _ = max(count.values(), key=lambda c: c[1])
-        root.label = most_common_attribute
+        root.label = f"{most_common_attribute} ({instances},{sum(count.values()) - instances})"
         return root
 
     max_attr = None
@@ -51,8 +50,8 @@ def ID3(target, target_values, values, samples):
             root.children[value] = ID3(target, target_values, new_values, samples_vi)
         else:
             count = get_count(target, target_values, samples)
-            most_common_attribute, _ = max(count.items(), key=lambda c: c[1])
+            most_common_attribute, instances = max(count.items(), key=lambda c: c[1])
             root.children[value] = Node()
-            root.children[value].label = most_common_attribute
+            root.children[value].label = f"{most_common_attribute} ({instances},{sum(count.values()) - instances})"
 
     return root
