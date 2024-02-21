@@ -19,6 +19,7 @@ class Node:
                 child.print(depth + 1)
         if depth == 0:
             print()
+            print()
 
 
 def ID3(target, target_values, values, samples):
