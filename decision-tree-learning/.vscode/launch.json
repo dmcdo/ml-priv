@@ -10,16 +10,16 @@
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": [
-                "tennis-attr.txt",
-                "tennis-train.txt",
-                "tennis-test.txt"
-            ]
             // "args": [
-            //     "iris-attr.txt",
-            //     "iris-train.txt",
-            //     "iris-test.txt"
+            //     "tennis-attr.txt",
+            //     "tennis-train.txt",
+            //     "tennis-test.txt"
             // ]
+            "args": [
+                "iris-attr.txt",
+                "iris-train.txt",
+                "iris-test.txt"
+            ]
         },
         {
             "name": "Corrupted",

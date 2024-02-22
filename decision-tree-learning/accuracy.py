@@ -44,6 +44,8 @@ def do_post_prune(ruleset, samples, target):
             continue
 
         accuracy = get_accuracy([rule], applicable_samples, target)
+        if accuracy < 1:
+            pass  # Debug
 
         # If removing a condition increases accuracy, we will prune it soon.
         conditions_to_prune = set()
