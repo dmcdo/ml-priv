@@ -25,4 +25,4 @@ if __name__ == "__main__":
             if len(rule) == 1:
                 print(rule[0])
             else:
-                print(" ^ ".join(rule[:-1]), "=>", rule[-1])
+                print(rule)

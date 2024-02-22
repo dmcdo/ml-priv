@@ -43,14 +43,14 @@ class Node:
             ruleset = []
             for edge, child in self.children.items():
                 for rule in child.ruleset():
-                    if edge[0] in ("<", ">"):
-                        ruleset.append([f"{self.attribute} {edge[0]} {edge[1:]}", *rule])
-                    else:
-                        ruleset.append([f"{self.attribute} = {edge}", *rule])
+                    ruleset.append([(self.attribute, edge), *rule])
             return ruleset
 
 
 def ID3(target, target_values, values, samples):
+    """
+    The ID3 tree builder algorithm. See Table 3.1.
+    """
     root = Node()
 
     for value in target_values:

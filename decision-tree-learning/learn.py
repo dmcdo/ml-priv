@@ -10,7 +10,7 @@ if __name__ == "__main__":
         attr_spl_file = sys.argv[2]
         pckl_out_file = sys.argv[3] if len(sys.argv) > 3 else "tree.pkl"
     except IndexError:
-        print("Invalid arguments. Must be: `learn.py example-attr.txt example-train.txt`")
+        print("Invalid arguments.")
         sys.exit(1)
 
     target, target_values, values, order, continuous = read_attributes_definition_file(attr_def_file)

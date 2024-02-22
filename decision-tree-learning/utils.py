@@ -86,6 +86,10 @@ def make_discrete(values, train_samples, test_samples, order, continuous):
 
 
 def get_count(target, target_values, samples):
+    """
+    Get counts of target attribute values in samples list.
+    Returns dict in the form of {TV1: n1, TV2, n2, ...}
+    """
     count = {v: 0 for v in target_values}
     for sample in samples:
         count[sample[target]] += 1
@@ -94,6 +98,10 @@ def get_count(target, target_values, samples):
 
 
 def get_entropy(target, target_values, samples):
+    """
+    Calculate the Entropy of a list of samples with respect
+    to the target value.
+    """
     count = get_count(target, target_values, samples)
 
     entropy = 0.0
@@ -105,6 +113,10 @@ def get_entropy(target, target_values, samples):
 
 
 def get_gain(target, target_values, values, samples, attribute):
+    """
+    Get information gain with respect to some target value
+    and some attribute.
+    """
     entropy = get_entropy(target, target_values, samples)
 
     S = {v: [] for v in values[attribute]}

@@ -3,6 +3,14 @@ import sys
 import pickle
 
 
+def get_accuracy(root, target, samples):
+    """
+    Compute the % accuracy of a tree on a sample list with
+    respect to a target value.
+    """
+    return sum(root.answer(sample) == sample[target] for sample in samples) / len(samples)
+
+
 if __name__ == "__main__":
     try:
         attr_def_file = sys.argv[1]
@@ -10,7 +18,7 @@ if __name__ == "__main__":
         attr_tst_file = sys.argv[3]
         pckl_in_file = sys.argv[4] if len(sys.argv) > 3 else "tree.pkl"
     except IndexError:
-        print("Invalid arguments. Must be: `judge.py example-attr.txt example-test.txt example-test.txt`")
+        print("Invalid Arguments.")
         sys.exit(1)
 
     target, target_values, values, order, continuous = read_attributes_definition_file(attr_def_file)
@@ -21,6 +29,5 @@ if __name__ == "__main__":
     with open(pckl_in_file, "rb") as picklefile:
         root = pickle.load(picklefile)
 
-    correct_guesses = sum(root.answer(sample) == sample[target] for sample in test_samples)
-    print(f"Accuracy: {100 * correct_guesses / len(test_samples)}%")
+    print(f"Accuracy: {100 * get_accuracy(root, target, test_samples)}%")
     print()
