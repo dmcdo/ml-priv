@@ -1,4 +1,4 @@
-from utils import read_attributes_definition_file, read_sample_training_file
+from utils import *
 from node import ID3
 import sys
 import pickle
@@ -15,29 +15,7 @@ if __name__ == "__main__":
 
     target, target_values, values, order, continuous = read_attributes_definition_file(attr_def_file)
     samples = read_sample_training_file(attr_spl_file, target, order)
-
-    # Convert continious values to discrete values
-    # This is very hacky
-    for attribute in order:
-        if continuous[attribute]:
-            sv = sorted(float(sample[attribute]) for sample in samples)
-            for i, j in zip(sv[:-1], sv[1:]):
-                cond = f"<{(i + j) / 2}"
-                if len(values[attribute]) == 0 or values[attribute][-1] != cond:
-                    values[attribute].append(cond)
-
-            for sample in samples:
-                i = float(sample[attribute])
-
-                # TODO binary search if this needs to be sped up
-                for cond in values[attribute]:
-                    if i < float(cond[1:]):
-                        sample[attribute] = cond
-                        break
-                else:
-                    sample[attribute] = f">{values[attribute][-1][1:]}"
-
-            values[attribute].append(f">{values[attribute][-1][1:]}")
+    make_discrete(values, samples, samples, order, continuous)
 
     root = ID3(target, target_values, values, samples)
 
@@ -45,3 +23,4 @@ if __name__ == "__main__":
         print(f"Dumping tree to {pckl_out_file}... ", end="", flush=True)
         pickle.dump(root, picklefile)
         print("Done!")
+        print()

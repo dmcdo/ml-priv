@@ -8,7 +8,19 @@ class Node:
         self.ratio = None
         self.children = {}
 
+    def answer(self, sample):
+        """
+        Get target value for instance.
+        """
+        if self.label:
+            return self.label
+
+        return self.children[sample[self.attribute]].answer(sample)
+
     def print(self, depth=0):
+        """
+        Print the tree.
+        """
         if self.label:
             print(f" : {self.label} {self.ratio}", end="")
         else:
@@ -22,14 +34,19 @@ class Node:
             print()
 
     def ruleset(self):
+        """
+        Compute the rule set equivalent to the tree.
+        """
         if self.label:
             return [[self.label]]
         else:
             ruleset = []
             for edge, child in self.children.items():
-                child_ruleset = child.ruleset()
-                child_ruleset = [[f"{self.attribute} = {edge}", *rule] for rule in child_ruleset]
-                ruleset += child_ruleset
+                for rule in child.ruleset():
+                    if edge[0] in ("<", ">"):
+                        ruleset.append([f"{self.attribute} {edge[0]} {edge[1:]}", *rule])
+                    else:
+                        ruleset.append([f"{self.attribute} = {edge}", *rule])
             return ruleset
 
 

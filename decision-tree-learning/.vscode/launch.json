@@ -8,8 +8,13 @@
             "name": "Python Debugger",
             "type": "debugpy",
             "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal"
+            "program": "judge.py",
+            "console": "integratedTerminal",
+            "args": [
+                "bool-attr.txt",
+                "bool-test.txt",
+                "bool-tree.pkl"
+            ]
         }
     ]
 }
