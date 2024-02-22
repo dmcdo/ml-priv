@@ -15,3 +15,8 @@ if __name__ == "__main__":
     with open(tree_pickle_fname, "rb") as pf:
         root = pickle.load(pf)
         root.print()
+        for rule in root.ruleset():
+            if len(rule) == 1:
+                print(rule[0])
+            else:
+                print(" ^ ".join(rule[:-1]), "=>", rule[-1])

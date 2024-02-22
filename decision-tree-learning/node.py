@@ -21,6 +21,17 @@ class Node:
             print()
             print()
 
+    def ruleset(self):
+        if self.label:
+            return [[self.label]]
+        else:
+            ruleset = []
+            for edge, child in self.children.items():
+                child_ruleset = child.ruleset()
+                child_ruleset = [[f"{self.attribute} = {edge}", *rule] for rule in child_ruleset]
+                ruleset += child_ruleset
+            return ruleset
+
 
 def ID3(target, target_values, values, samples):
     root = Node()
