@@ -1,4 +1,4 @@
-from utils import get_count, get_entropy, get_gain
+from utils import *
 
 
 class Node:
@@ -60,7 +60,7 @@ def ID3(target, target_values, values, samples):
             return root
     if len(values.keys()) == 0:
         count = get_count(target, target_values, samples)
-        most_common_attribute, _ = max(count.values(), key=lambda c: c[1])
+        most_common_attribute, instances = max(count.items(), key=lambda c: c[1])
         root.label = most_common_attribute
         root.ratio = instances, sum(count.values()) - instances
         return root

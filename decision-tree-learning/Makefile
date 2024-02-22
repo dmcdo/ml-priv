@@ -1,19 +1,14 @@
 PYTHON=python3
 
 testTennis:
-	$(PYTHON) learn.py tennis-attr.txt tennis-train.txt tennis-tree.pkl
-	$(PYTHON) accuracy.py tennis-attr.txt tennis-train.txt tennis-test.txt tennis-tree.pkl
-	$(PYTHON) printer.py tennis-tree.pkl
+	$(PYTHON) main.py tennis-attr.txt tennis-train.txt tennis-test.txt
 
 testBool:
-	$(PYTHON) learn.py bool-attr.txt bool-train.txt bool-tree.pkl
-	$(PYTHON) accuracy.py bool-attr.txt bool-train.txt bool-test.txt bool-tree.pkl
-	$(PYTHON) printer.py bool-tree.pkl
+	$(PYTHON) main.py bool-attr.txt bool-train.txt bool-test.txt
 
 testIris:
-	$(PYTHON) learn.py iris-attr.txt iris-train.txt iris-tree.pkl
-	$(PYTHON) accuracy.py iris-attr.txt iris-train.txt iris-test.txt iris-tree.pkl
-	$(PYTHON) printer.py iris-tree.pkl
+	$(PYTHON) main.py iris-attr.txt iris-train.txt iris-test.txt
 
-clean:
-	rm -f *.pkl
+
+testIrisNoisy:
+	$(PYTHON) corrupt-main.py iris-attr.txt iris-train.txt iris-test.txt

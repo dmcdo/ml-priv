@@ -1,3 +1,4 @@
+import itertools
 from math import log2
 
 
@@ -70,7 +71,7 @@ def make_discrete(values, train_samples, test_samples, order, continuous):
                 if len(values[attribute]) == 0 or values[attribute][-1] != cond:
                     values[attribute].append(cond)
 
-            for sample in test_samples:
+            for sample in itertools.chain(train_samples, test_samples):
                 # In-place swap of continious sample data with discrete values.
                 i = float(sample[attribute])
 

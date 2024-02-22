@@ -8,12 +8,29 @@
             "name": "Python Debugger",
             "type": "debugpy",
             "request": "launch",
-            "program": "judge.py",
+            "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "bool-attr.txt",
-                "bool-test.txt",
-                "bool-tree.pkl"
+                "tennis-attr.txt",
+                "tennis-train.txt",
+                "tennis-test.txt"
+            ]
+            // "args": [
+            //     "iris-attr.txt",
+            //     "iris-train.txt",
+            //     "iris-test.txt"
+            // ]
+        },
+        {
+            "name": "Corrupted",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "corrupt-main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "iris-attr.txt",
+                "iris-train.txt",
+                "iris-test.txt"
             ]
         }
     ]
