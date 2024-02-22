@@ -132,3 +132,24 @@ def get_gain(target, target_values, values, samples, attribute):
         summation += (len(S[value]) / len(sample)) * get_entropy(target, target_values, S[value])
 
     return entropy - summation
+
+
+def get_split_information(target, target_values, values, samples, attribute):
+    S = {v: [] for v in values[attribute]}
+    for sample in samples:
+        S[sample[attribute]].append(sample)
+
+    split_info = 0.0
+    for value in values[attribute]:
+        if len(S[value]) == 0:
+            continue
+
+        split_info += (len(S[value]) / len(sample)) * log2(len(S[value]) / len(sample))
+
+    return -split_info
+
+
+def get_gain_ratio(target, target_values, values, samples, attribute):
+    si = get_split_information(target, target_values, values, samples, attribute)
+    ga = get_gain(target, target_values, values, samples, attribute)
+    return si / ga
