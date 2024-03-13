@@ -54,12 +54,7 @@ class ANN:
             print()
 
 
-    def do_backpropagation(
-        self,
-        input_values: List[float],
-        target_values: List[float],
-    ) -> None:
-        
+    def propagate(self, input_values: List[float]) -> List[List[float]]:
         layers_outputs = []
         last_outputs = input_values
         for layer in self.layers:
@@ -67,7 +62,16 @@ class ANN:
             layers_outputs.append(outputs)
             last_outputs = outputs
 
-        pass
+        return layers_outputs
+
+
+    def do_backpropagation(
+        self,
+        input_values: List[float],
+        target_values: List[float],
+    ) -> None:
+        results = self.propagate(input_values)
+        print("\n".join(str(r) for r in results))
 
 
     @staticmethod
@@ -83,6 +87,7 @@ class ANN:
     @staticmethod
     def from_file(
         filename: str,
+        *,
         learnrate: float,
         momentum: float,
         num_hidden_units: int,
