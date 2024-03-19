@@ -2,6 +2,7 @@ from ann import ANN
 import os
 import os.path
 import argparse
+import copy
 
 from typing import List, Optional
 
@@ -28,11 +29,14 @@ def main(argv: Optional[List[str]] = None):
         momentum=arguments.momentum,
     )
 
-    ann.do_backpropagation(
-        list(map(float, [1, 0, 0, 0, 0, 0, 0, 0])),
-        list(map(float, [1, 0, 0, 0, 0, 0, 0, 0])),
-    )
+    # Do training
+    samples = ANN.training_samples_from_file(f"{arguments.data_set}-train.txt")
 
+    for sample in samples:
+        ann.do_backpropagation(*sample)
+
+    for sample in samples:
+        print([round(x) for x in ann.propagate(sample[0])[-1]])
 
 if __name__ == "__main__":
     main()
