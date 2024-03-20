@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": ["-n", "1"]
+            "args": ["-n", "1", "--data-set", "tennis"]
         }
     ]
 }
