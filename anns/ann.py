@@ -133,6 +133,14 @@ class ANN:
                 hidden_deltas.append(delta)
 
 
+    def compute_accuracy(
+        self,
+        training_samples: List[Tuple[List[float], List[float]]],
+    ) -> float:
+        for training_sample in training_samples:
+            input_values, target_values = training_sample
+
+
     def encode_input_values(self, input_values) -> List[float]:
         encoded_input_values = []
         for i in range(len(input_values)):
@@ -162,6 +170,21 @@ class ANN:
 
         return encoded_output_values
 
+
+    def decode_output_values(self, output_values) -> List[str]:
+        i = 0
+        results = []
+
+        for encoding in self.output_encoding:
+            if encoding is None:
+                results.append(str(int(round(output_values[i]))))
+                i += 1
+            else:
+                result = encoding[max(enumerate(output_values[i:i + len(encoding)]), key=lambda x: x[1])[0]]
+                results.append(result)
+                i += len(encoding)
+
+        return results
 
     @staticmethod
     def net(input: List[float], unit: List[float]):
@@ -230,7 +253,9 @@ class ANN:
 
 
     @staticmethod
-    def training_samples_from_file(filename: str) -> List[Tuple[List[float], List[float]]]:
+    def training_samples_from_file(
+        filename: str,
+    ) -> List[Tuple[List[float], List[float]]]:
         samples = []
 
         with open(filename, "r") as infile:
