@@ -1,10 +1,4 @@
-import typing
+from typing import Optional, List
+from random import choice, randint
 
-
-class Individual:
-    def __init__(self):
-        pass
-
-    @staticmethod
-    def from_attr() -> "Individual":
-        pass
+from attr import AttributeDefinition

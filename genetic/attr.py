@@ -7,6 +7,7 @@ class AttributeDefinition:
 
     # Instance variables
     attributes: typing.Dict[str, typing.List[str]] = {}
+    order: typing.List[str] = []
     target_attr: str
     target_vals: typing.List[str]
 
@@ -19,6 +20,7 @@ class AttributeDefinition:
             for line in lines[:-1]:
                 attr, *values = line.split()
 
+                self.order.append(attr)
                 if values == AttributeDefinition.CONTINUOUS:
                     self.attributes[attr] = []  # TODO
                 else:
