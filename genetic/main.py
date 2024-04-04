@@ -4,7 +4,9 @@ import typing
 from pathlib import Path
 
 from attr import AttributeDefinition
-from individual import Individual
+from hypothesis import Rule, Hypothesis
+from ga import fitness, GA
+from sample import SampleSet
 
 
 def main(argv: typing.Optional[typing.List[str]] = None) -> None:
@@ -19,10 +21,15 @@ def main(argv: typing.Optional[typing.List[str]] = None) -> None:
     arguments = parser.parse_args(argv)
 
     attr = AttributeDefinition(arguments.data_set)
+    test_samples = SampleSet(arguments.data_set, "test")
+    train_samples = SampleSet(arguments.data_set, "train")
 
     for _ in range(arguments.population):
-        indiv = Individual.from_attr(attr)
-        print(indiv)
+        hypothesis = Hypothesis.random_from_attr(attr)
+        # print(hypothesis)
+        print(fitness(hypothesis, test_samples))
+        print(fitness(hypothesis, train_samples))
+        print()
 
 
 

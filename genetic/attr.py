@@ -38,5 +38,3 @@ class AttributeDefinition:
         builder.append("")
         
         return "\n".join(builder)
-
-        
